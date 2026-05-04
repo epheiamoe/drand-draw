@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "drand-client": "^1.4.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.6",
+    "@tailwindcss/vite": "^4.1.6",
+    "vite": "^6.3.5"
+  }
+}

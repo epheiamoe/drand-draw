@@ -1,0 +1,8 @@
+[project]
+name = "drand-draw"
+version = "1.0.0"
+description = "Verifiable lottery CLI tool powered by drand"
+requires-python = ">=3.10"
+
+[project.scripts]
+drand-draw = "drand_draw.__main__:main"
