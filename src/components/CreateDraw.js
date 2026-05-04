@@ -4,6 +4,7 @@ import { computeRound, computeWinners, formatWinnerList } from '../lottery.js'
 import { fetchBeacon } from '../api.js'
 import { paramsToHash, encodeShortCode } from '../encode.js'
 import { ICONS } from '../icons.js'
+import { renderSortTool } from './SortTool.js'
 
 export function renderCreateDraw(container) {
   container.innerHTML = `
@@ -188,4 +189,8 @@ export function renderCreateDraw(container) {
       })
     })
   })
+
+  const sortContainer = document.createElement('div')
+  container.querySelector('.max-w-xl').appendChild(sortContainer)
+  renderSortTool(sortContainer)
 }

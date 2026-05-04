@@ -109,7 +109,9 @@ After the deadline, the host must:
 2. **Deduplicate**: same user = one entry
 3. **Sort**: All @usernames in ASCII ascending order (digits → uppercase → lowercase)
 4. **Number**: Starting from **0**
-5. **Publish** the complete numbered list (screenshot or text)
+5. **Publish** the complete numbered list
+
+> 💡 **Sorting tool**: On the "Create Draw" page, scroll down to the "Participant List Sorter". Paste handles (space/comma/newline separated), and it automatically sorts and numbers them. You can copy the sorted text or export as images. Choose "Single Column" or "Square Grid" mode — square mode minimizes image quality loss on X.
 
 > ⚠️ If a participant finds themselves missing from the list, they should raise the issue now.
 
