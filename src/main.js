@@ -39,9 +39,12 @@ function render() {
               <button class="tab-btn px-3 py-1.5 rounded-lg transition-colors ${activeTab === 'verify' ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white'}" data-tab="verify">${t('tabVerify')}</button>
               <button class="tab-btn px-3 py-1.5 rounded-lg transition-colors ${activeTab === 'guide' ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white'}" data-tab="guide">${t('tabGuide')}</button>
             </nav>
-            <button id="lang-switch" class="ml-2 p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" title="${t('langSwitch')}">
+            <button id="lang-switch" class="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" title="${t('langSwitch')}">
               ${ICONS.globe}
             </button>
+            <a href="https://github.com/epheiamoe/drand-draw" target="_blank" rel="noopener" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" title="GitHub">
+              ${ICONS.externalLink} ${t('repoLink')}
+            </a>
           </div>
         </div>
       </header>
