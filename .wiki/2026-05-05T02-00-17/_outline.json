@@ -1,0 +1,154 @@
+{
+  "sections": [
+    {
+      "name": "入门指南",
+      "topics": [
+        {
+          "level": "初学",
+          "title": "概览",
+          "description": "项目定位、核心特性与整体架构速览，了解 drand-draw 是什么、解决什么问题",
+          "task": "阅读 README.md 和 PLAN.md，用 3-5 句话概括项目定位（零后台、可验证、去中心化抽奖）。用表格列出核心特性（纯前端、中英双语、多链支持、多奖项、短码分享）。引用 PLAN.md 中的攻击面分析和系统架构图，说明防作弊机制。"
+        },
+        {
+          "level": "初学",
+          "title": "快速开始",
+          "description": "5 分钟上手：通过网页版完成一次完整的抽奖发起与验证流程",
+          "task": "分两节写出完整上手指南：(1) 网页版：打开链接 → 选择链 → 填写 N/截止时间/奖项 → 生成链接 → 等待截止 → 开奖 → 验证；(2) CLI 版：pip install → drand-draw compute/encode/verify 三条命令的完整示例。每个步骤配代码块或截图描述，确保新手能一次性跑通。强调 deadline 使用 Unix 时间戳。"
+        },
+        {
+          "type": "group",
+          "title": "使用教程"
+        },
+        {
+          "level": "初学",
+          "title": "博主：发起一次抽奖",
+          "description": "从博主视角展示完整的抽奖发起流程，涵盖参数填写到结果公示",
+          "task": "阅读 src/components/CreateDraw.js，按步骤说明：选择 drand 链（quicknet/default/evmnet 区别）→ 输入参与人数 N → 选择截止时间及时区 → 配置多层级奖项 → 生成链接与短码。解释 URL 格式和短码格式的含义。说明博主应在截止时间前公开链接/短码，截止后开奖并公示结果。引用 PLAN.md 中\"仍需社会约束的\"章节。"
+        },
+        {
+          "level": "初学",
+          "title": "粉丝：验证抽奖结果",
+          "description": "从粉丝视角展示如何验证抽奖的真实性，确保博主无法作弊",
+          "task": "阅读 src/components/DrawStatus.js 中的 renderManualVerify 和 performVerification 逻辑，写出验证流程：粘贴链接/短码 → 页面自动拉取 drand 随机数 → 比对计算结果与声明的中奖编号。说明三种验证入口（链接、短码、手动输入参数）。强调验证成功的绿色标记和失败的红色标记含义。引用 PLAN.md 中防御矩阵说明博主无法作弊的原因。"
+        },
+        {
+          "type": "group",
+          "title": "核心概念"
+        },
+        {
+          "level": "中级",
+          "title": "理解 drand 去中心化随机数",
+          "description": "drand 运行原理、三条链的差异、HTTP API 的使用方式",
+          "task": "阅读 src/chains.js 和 src/api.js，先解释 drand 是什么（League of Entropy 15+ 机构共同运行）。用表格对比三条链（quicknet 3s/default 30s/evmnet 3s）的 genesisTime、period、scheme 等参数。然后说明 API 调用方式：GET {relay}/{chain_hash}/public/{round}，返回 randomness 和 signature。强调多 relay 容错机制。"
+        },
+        {
+          "level": "中级",
+          "title": "抽奖的安全模型",
+          "description": "分析抽奖过程的信任模型、攻击面及防御策略",
+          "task": "重点阅读 PLAN.md 中的\"攻击面分析\"章节。用表格列出 5 种攻击方式（博主选择 round、修改 N、篡改排序规则、篡改随机数、多次开奖）及其防御机制。区分\"技术防御\"（由 drand 和 URL 锁定）和\"社会约束\"（博主需诚信处理的部分）。解释为什么这是 trustless 而非 fully trustless。引用 ALGORITHM.md 中的安全边界表。"
+        },
+        {
+          "level": "初学",
+          "title": "理解 URL 与短码格式",
+          "description": "URL query 参数与短码两种分享方式的编码规则与使用场景",
+          "task": "阅读 src/encode.js 和 cli/drand_draw/encode.py，先展示 URL 格式示例（#/?chain=quicknet&deadline=...&n=100&prizes=1,3&winners=42,15）并逐一解释每个参数。然后展示短码格式示例（q-66364280-2s-1,3-2a,f,4e），解释编码规则：前缀映射、deadline 十六进制、N 的 base36、prizes/winners 逗号分隔 base36。说明短码的优势（避免社交平台外链限流）。"
+        }
+      ]
+    },
+    {
+      "name": "深入探索",
+      "topics": [
+        {
+          "type": "group",
+          "title": "前端架构"
+        },
+        {
+          "level": "中级",
+          "title": "SPA 路由与页面三态",
+          "description": "基于 Hash 的 SPA 路由实现，以及同一 URL 的三种不同展示状态",
+          "task": "阅读 src/main.js，分析路由实现：监听 hashchange 事件 → hashToParams 解析 hash → 根据 hash 决定渲染哪个组件。重点说明\"页面三态\"设计：截止前（倒计时）→ 已截止未开奖（等待按钮）→ 已开奖（验证结果）。解释何时触发 drand-refresh 自定义事件。分析组件通信方式：通过 DOM 事件和全局 window 事件。"
+        },
+        {
+          "level": "中级",
+          "title": "核心抽奖算法详解",
+          "description": "computeRound 与 computeWinners 的数学原理与 JavaScript/Python 双语言实现",
+          "task": "联合阅读 src/lottery.js 和 cli/drand_draw/lottery.py，逐行剖析两个核心函数：(1) computeRound 的公式 floor((deadline - genesis) / period) + 1；(2) computeWinners 中 randomness + shift 的种子拼接方式、BigInt 取模、碰撞顺延（环形查找）逻辑。用示例数据（如 randomness 的前 64 字符、N=100、prizes=[1,3]）手动演算一遍。强调两套实现算法完全一致，给出交叉验证的思路。引用 ALGORITHM.md 的算法规范。"
+        },
+        {
+          "level": "中级",
+          "title": "短码设计与编解码",
+          "description": "短码编码/解码的完整实现，包括 base36 转换与链前缀映射",
+          "task": "深入阅读 src/encode.js 和 cli/drand_draw/encode.py，解释短码的五个分段规则。重点讲解 (1) 链前缀映射表 q/d/e → quicknet/default/evmnet；(2) deadline 用小端十六进制的原因（紧凑且可读）；(3) N 用 base36 编码（0-9a-z）以节省空间；(4) prizes 和 winners 可选段的逗号分隔 base36 编码。给出编解码的互逆测试示例。"
+        },
+        {
+          "level": "高级",
+          "title": "用户列表排序与图片导出",
+          "description": "参与者列表的 ASCII 排序规则与 Canvas 图片导出实现",
+          "task": "阅读 src/components/SortTool.js，分析 (1) parseHandles 函数：@符号去除、分隔符归一化、去重、ASCII 升序排序的完整流程；(2) renderListImages 函数：单列模式和方形网格模式的 Canvas 渲染算法，包括分页逻辑、行高计算、文字截断（...）、表头/页脚渲染；(3) 图片分页逻辑（最大高度 8000px 限制）。说明此工具在抽奖流程中的作用：博主需在开奖前公开排序后的完整名单。"
+        },
+        {
+          "type": "group",
+          "title": "CLI 工具"
+        },
+        {
+          "level": "中级",
+          "title": "CLI 命令参考",
+          "description": "Python CLI 工具的 install、verify、compute、encode、decode 五条命令的完整用法",
+          "task": "阅读 cli/drand_draw/__main__.py，先给出 pip install 和基本用法。然后分别说明四条子命令：verify（验证中奖结果）、compute（从 deadline 计算中奖者）、encode（编码短码）、decode（解码短码）。每条命令给出完整参数列表和 2-3 个实际示例。强调 --chain 可选值（quicknet/default/evmnet），--prizes 用逗号分隔，--deadline 是 Unix 时间戳。"
+        },
+        {
+          "level": "中级",
+          "title": "CLI 实现与跨语言一致性",
+          "description": "Python CLI 的内部模块划分与 JavaScript 版本的算法一致性保障",
+          "task": "联合阅读 cli 目录下的所有 Python 文件，用表格对比 JS 版和 Python 版的模块对应关系：lottery.js ↔ lottery.py，encode.js ↔ encode.py，api.js ↔ api.py。重点验证算法一致性：(1) computeRound 公式相同；(2) computeWinners 使用相同的 randomness+shift 拼接和碰撞顺延逻辑；(3) 短码编解码规则一致；(4) chain 配置数据一致。可以写一个简单的交叉验证脚本示例。"
+        },
+        {
+          "type": "group",
+          "title": "部署与运维"
+        },
+        {
+          "level": "中级",
+          "title": "Cloudflare Pages 部署",
+          "description": "从源码到生产环境的完整部署流程，含 Vite 构建与 wrangler 配置",
+          "task": "阅读 vite.config.js、wrangler.toml 和 package.json，写出完整部署步骤：(1) 前置条件（nodejs + npm + wrangler 登录）；(2) npm install & npm run build；(3) wrangler pages deploy；(4) 或通过 Cloudflare Dashboard 连接 Git 仓库自动部署。解释 wrangler.toml 中 pages_build_output_dir = \"dist\" 的含义。给出 CLI 版的安装部署说明。"
+        },
+        {
+          "level": "中级",
+          "title": "drand HTTP API 集成",
+          "description": "与 drand 网络通信的 API 封装层，含多 Relay 容错与超时处理",
+          "task": "阅读 src/api.js 和 cli/drand_draw/api.py，分析 API 封装层的设计：(1) 三个 relay 地址的硬编码（api.drand.sh / api2.drand.sh / drand.cloudflare.com）；(2) fetchWithFallback 实现：顺序尝试，8 秒超时；(3) 重试机制（最多 5 次，间隔 2-3 秒）；(4) 响应数据结构（round、randomness、signature）。给出使用 curl 手动验证的示例。"
+        },
+        {
+          "level": "中级",
+          "title": "国际化实现",
+          "description": "中英双语翻译系统的设计与实现，含自动检测与手动切换",
+          "task": "阅读 src/i18n.js，分析 i18n 实现：(1) detectLang 根据 navigator.language 和 localStorage 检测语言；(2) setLang 切换语言并刷新页面；(3) T 对象包含 zh 和 en 两个完整的翻译表；(4) t() 函数支持带参数的动态翻译（如奖项等级）。说明如何添加新语言的步骤。注意翻译表中的函数类型（prizeTier 动态参数）的处理。"
+        },
+        {
+          "level": "高级",
+          "title": "算法规范独立文档",
+          "description": "ALGORITHM.md 的内容解读，供第三方开发者独立复现抽奖结果",
+          "task": "阅读 ALGORITHM.md，逐节解读：(1) 参与列表排序与编号的规范（去重、ASCII 排序、从 0 编号）；(2) Round 计算的公式和链参数表；(3) 获取随机数的 HTTP 请求和响应格式；(4) 中奖计算的伪代码实现，重点说明 shift 的作用和碰撞顺延逻辑；(5) 短码编码格式；(6) 验证步骤的完整流程。强调这份文档的目的是让任何人可以不依赖本工具、独立使用任何语言复现抽奖结果。"
+        },
+        {
+          "level": "高级",
+          "title": "安全边界与参数限制",
+          "description": "系统各参数的安全上限、设计考量及其技术原因",
+          "task": "汇总 ALGORITHM.md 和 PLAN.md 中的安全边界：N 最大 1,048,575（约 100 万）、奖项层级最多 15 层、每层最多 1000 人、deadline 上限 2106 年。解释这些限制的技术原因：BigInt 精度、base36 编码长度、URL 长度限制、Canvas 渲染性能等。讨论可能的扩展方向（如支持更大的 N、更多奖项层）。列出如果超出限制会发生什么。"
+        },
+        {
+          "level": "高级",
+          "title": "Markdown 指南渲染",
+          "description": "运行时加载并渲染 Markdown 指南的实现，含预取与缓存策略",
+          "task": "阅读 src/markdown.js 和 src/components/Guide.js，分析：(1) preFetchMd 在应用启动时预取中英文两个版本的 GUIDE.md；(2) getCachedMd 从内存缓存读取；(3) mdToHtml 将 Markdown 转为 HTML 的渲染逻辑（正则替换或轻量级解析器）；(4) Guide 组件根据当前语言选择对应的 Markdown 文件。说明为什么需要运行时渲染而不是直接使用静态 HTML——支持语言切换。"
+        },
+        {
+          "level": "中级",
+          "title": "Lucide 图标系统",
+          "description": "内联 SVG 图标的管理、使用与自定义扩展方式",
+          "task": "阅读 src/icons.js，分析图标系统的设计：所有 Lucide 图标以纯内联 SVG 字符串形式导出为命名函数/对象。解释为什么选择内联 SVG 而非图标字体或外部资源——零额外请求、可按需加载、方便自定义颜色。说明如何在项目中添加新图标。不要列出所有图标的定义，而是描述设计模式。"
+        }
+      ]
+    }
+  ]
+}

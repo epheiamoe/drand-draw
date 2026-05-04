@@ -77,6 +77,8 @@ export function renderSortTool(container) {
     const handles = parseHandles(raw)
     currentHandles = handles
     countEl.textContent = handles.length
+    const nInput = document.getElementById('create-n')
+    if (nInput && handles.length > 0) nInput.value = handles.length
     outputDiv.classList.add('hidden')
     modeColumn.disabled = handles.length === 0
     modeSquare.disabled = handles.length === 0
