@@ -132,9 +132,13 @@ function renderManualVerify(container) {
               <input id="v-n" type="number" min="1" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-white text-sm" placeholder="100" />
             </div>
             <div>
-              <label class="block text-xs text-gray-400 mb-1">${t('manualWinner')}</label>
-              <input id="v-winners" type="text" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-white text-sm" placeholder="${t('manualWinnerPlaceholder')}" />
+              <label class="block text-xs text-gray-400 mb-1">${t('prizesLabel')}</label>
+              <input id="v-prizes" type="text" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-white text-sm" placeholder="1,2,3" />
             </div>
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">${t('manualWinner')}</label>
+            <input id="v-winners" type="text" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-2 text-white text-sm" placeholder="${t('manualWinnerPlaceholder')}" />
           </div>
           <button id="verify-manual" class="w-full bg-gray-700 hover:bg-gray-600 text-white rounded-lg px-4 py-2 text-sm transition-colors flex items-center justify-center gap-2">
             ${ICONS.shieldCheck} ${t('verifyBtn')}
@@ -172,16 +176,12 @@ function renderManualVerify(container) {
     const chain = container.querySelector('#v-chain').value
     const round = parseInt(container.querySelector('#v-round').value)
     const n = parseInt(container.querySelector('#v-n').value)
+    const prizesStr = container.querySelector('#v-prizes').value.trim()
     const winnersStr = container.querySelector('#v-winners').value.trim()
     if (!round || !n) { alert('Please fill in round and N'); return }
+    const prizes = prizesStr ? prizesStr.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x)) : [winnersStr ? winnersStr.split(',').length : 1]
     const winners = winnersStr ? winnersStr.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x)) : []
-    const params = {
-      chain,
-      round,
-      n,
-      prizes: [winners.length || 1],
-      winners,
-    }
+    const params = { chain, round, n, prizes, winners }
     doVerify(params)
   })
 }

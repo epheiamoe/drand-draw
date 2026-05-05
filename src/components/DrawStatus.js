@@ -32,13 +32,8 @@ export function renderDrawStatus(container, params) {
   const prizes = params.prizes && params.prizes.length ? params.prizes : [1]
   const hasWinners = params.winners && params.winners.length > 0
 
-  if (params.round) {
-    if (hasWinners) {
-      renderVerifiedByRound(container, params, chain, prizes, n)
-    } else {
-      renderByRound(container, params, chain, prizes, n)
-    }
-    return
+  if (params.round && !params.deadline) {
+    params = { ...params, deadline: chain.genesisTime + (params.round - 1) * chain.period, deadlineApprox: true }
   }
 
   if (!params.deadline) {
@@ -247,6 +242,8 @@ function renderAwaitDraw(container, params, deadlineStr, chain, prizes, n) {
 }
 
 function renderVerified(container, params, deadlineStr, chain, prizes, n) {
+  const deadlineApprox = params.deadlineApprox
+  const deadlineSuffix = deadlineApprox ? ` (±${chain.period}s)` : ''
   const round = Math.floor((params.deadline - chain.genesisTime) / chain.period) + 1
   const claimed = params.winners || []
   const code = encodeShortCode(params)
@@ -260,7 +257,7 @@ function renderVerified(container, params, deadlineStr, chain, prizes, n) {
         </div>
         <div class="grid grid-cols-2 gap-3 text-sm">
           <div><span class="text-gray-400">${t('chain')}</span><br><span class="text-white font-mono">${params.chain}</span></div>
-          <div><span class="text-gray-400">${t('deadlineLabel')}</span><br><span class="text-white font-mono">${deadlineStr}</span></div>
+          <div><span class="text-gray-400">${t('deadlineLabel')}${deadlineSuffix}</span><br><span class="text-white font-mono">${deadlineStr}</span></div>
           <div><span class="text-gray-400">${t('round')}</span><br><span class="text-white font-mono">#${round}</span></div>
           <div><span class="text-gray-400">${t('participants')} N</span><br><span class="text-white font-mono">${n}</span></div>
           <div><span class="text-gray-400">${t('prizesLabel')}</span><br><span class="text-white font-mono">${prizes.join(', ')} ${t('winners')}</span></div>

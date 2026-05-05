@@ -1,0 +1,774 @@
+{
+  "候选列表排序与导出": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\README.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\PLAN.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\SortTool.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\i18n.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\GUIDE.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\README.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__main__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\pyproject.toml": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\encode.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__init__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\icons.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\lottery.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\public\\GUIDE.md": [
+      [
+        1,
+        15
+      ],
+      [
+        205,
+        220
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\lottery.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\api.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\api.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\index.html": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\Guide.js": [
+      [
+        1,
+        50
+      ]
+    ]
+  },
+  "抽奖核心算法": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\encode.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\PLAN.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\ALGORITHM.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\lottery.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\lottery.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\index.html": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "短码编解码规范": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\api.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__main__.py": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "智能解析引擎": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\encode.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\lottery.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        100
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\SortTool.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\ALGORITHM.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\i18n.js": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "三态页面渲染机制": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        140,
+        160
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__main__.py": [
+      [
+        110,
+        135
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\api.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\lottery.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\i18n.js": [
+      [
+        1,
+        30
+      ]
+    ]
+  },
+  "算法规范与测试向量": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\api.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\api.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\lottery.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\ALGORITHM.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\GUIDE.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\lottery.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\index.html": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\package.json": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__init__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\encode.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\README.md": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "安全边界与参数限制": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\GUIDE.md": [
+      [
+        251,
+        340
+      ],
+      [
+        185,
+        250
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__main__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\encode.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\encode.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\i18n.js": [
+      [
+        1,
+        30
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\__init__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\PLAN.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\ALGORITHM.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\lottery.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\api.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\drand_draw\\lottery.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\cli\\pyproject.toml": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\chains.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\SortTool.js": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "cloudflare-pages-部署": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\GUIDE.md": [
+      [
+        170,
+        220
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\wrangler.toml": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\package.json": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\vite.config.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\index.html": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "cli-打包与发布": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\GUIDE.md": [
+      [
+        510,
+        540
+      ]
+    ]
+  },
+  "i18n-国际化方案": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\README.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "cli/pyproject.toml": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "cli/drand_draw/__main__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "cli/drand_draw/__init__.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "cli/README.md": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\style.css": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\PLAN.md": [
+      [
+        145,
+        175
+      ],
+      [
+        50,
+        60
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\i18n.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "cli/drand_draw/encode.py": [
+      [
+        1,
+        50
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\SortTool.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\Guide.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        20
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        20
+      ]
+    ],
+    "cli/drand_draw/api.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "cli/drand_draw/lottery.py": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\icons.js": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "组件系统与-ui-架构": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\main.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\DrawStatus.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\Guide.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\SortTool.js": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "候选列表排序工具实现": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\markdown.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\icons.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\SortTool.js": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "项目路线图与开发计划": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\package.json": [
+      [
+        1,
+        999999
+      ]
+    ]
+  },
+  "参与贡献指南": {
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\components\\CreateDraw.js": [
+      [
+        1,
+        30
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\src\\icons.js": [
+      [
+        1,
+        999999
+      ]
+    ],
+    "E:\\Epheia\\dev\\apps\\cf-pages\\drand\\PLAN.md": [
+      [
+        1,
+        999999
+      ]
+    ]
+  }
+}

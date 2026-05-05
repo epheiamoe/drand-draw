@@ -1,0 +1,180 @@
+{
+  "sections": [
+    {
+      "name": "入门指南",
+      "topics": [
+        {
+          "level": "初学",
+          "title": "概览",
+          "description": "项目定位、核心功能与技术栈简介，解释什么是可验证抽奖以及为什么不需要区块链",
+          "task": "阅读 README.md 和 PLAN.md，用一段话概括项目定位（零后端、纯前端、基于 drand 的社交平台抽奖工具）。列出三条核心特性：无后端存储、多链支持、短码分享。用表格对比 Web 版与 CLI 版的能力差异。引用项目中的'这不是 Web3/NFT 项目'声明。"
+        },
+        {
+          "level": "初学",
+          "title": "快速开始",
+          "description": "5 分钟上手完整抽奖流程：从网页创建抽奖到粉丝验证的端到端体验",
+          "task": "按步骤写出完整操作流程：1) 打开网站点击'发起抽奖' 2) 选择链、填 N、截止时间、奖项 3) 生成并复制链接/短码 4) 截止后开奖 5) 粉丝验证。每一步配代码块或截图文字说明。最后提供一个完整交互示例：用 quicknet 链、N=100、截止时间 1 小时后、一等奖 1 人。引用 main.js 的路由逻辑和 CreateDraw.js 的表单渲染。"
+        },
+        {
+          "type": "group",
+          "title": "使用流程"
+        },
+        {
+          "level": "初学",
+          "title": "博主操作指南",
+          "description": "面向活动主办方的详细使用说明：创建抽奖、管理候选名单、开奖与分享结果",
+          "task": "从 CreateDraw.js 和 DrawStatus.js 中提取博主操作流程。重点说明：创建表单参数含义、截止前要公开链接、截止后用同链接开奖、结果分享的三种方式（链接/短码/文本）。引用 GUIDE.md 中的'三个阶段完整流程'。提醒必须截止前发链接、开奖前公开排序后的候选列表。"
+        },
+        {
+          "level": "初学",
+          "title": "粉丝验证指南",
+          "description": "面向参与者的验证方法：通过链接验证、输入短码验证、手动输入参数验证三种方式",
+          "task": "从 DrawStatus.js 的 renderManualVerify 函数和 renderVerified 函数中提取验证流程。说明三种验证方式：1) 点开链接自动验证 2) 在验证页输入短码 3) 手动输入 chain/round/N/winners。展示验证通过/失败时的 UI 状态（绿色盾牌 vs 红色叉号）。引用 i18n.js 中 verifySuccess/verifyFail 的文案。"
+        },
+        {
+          "level": "中级",
+          "title": "候选列表排序与导出",
+          "description": "如何使用内建的排序工具对参与者列表排序、编号，并导出为图片用于社交平台发布",
+          "task": "详细解析 SortTool.js 组件：1) parseHandles 函数的去重与 ASCII 排序逻辑 2) renderPreview 的实时预览 3) generateImages 的 Canvas 渲染，解释 column 和 square 两种模式的区别 4) 图片分页逻辑（每页最多 8000px 高度）。提供@handle 输入示例和图片导出示意。"
+        },
+        {
+          "level": "中级",
+          "title": "CLI 工具安装与基础用法",
+          "description": "Python 命令行版 drand-draw 的安装、五条核心命令详解及使用场景",
+          "task": "阅读 cli/README.md 和 __main__.py，列出五条命令（verify/compute/encode/decode/parse）并给出完整参数说明和输出示例。说明安装方式（pip install . vs python -m drand_draw）。用表格对比每条命令的必填参数。重点解释 smart_parse 如何在 encode.py 中实现从任意文本提取抽奖参数。引用 pyproject.toml 的包配置。"
+        },
+        {
+          "level": "中级",
+          "title": "短码分享机制",
+          "description": "短码的编码格式、设计意图以及如何在社交平台绕过外链限流",
+          "task": "从 encode.js 和 cli/drand_draw/encode.py 中提取编解码逻辑。解释短码格式：{chain}-{deadline_hex}-{N_base36}-{prizes}-{winners}。对比 URL 参数格式和短码格式的异同。说明 base36 编码和十六进制时间戳的设计理由（紧凑、可读）。给出编解码的往返测试示例。"
+        }
+      ]
+    },
+    {
+      "name": "深入探索",
+      "topics": [
+        {
+          "type": "group",
+          "title": "架构与设计"
+        },
+        {
+          "level": "高级",
+          "title": "系统架构全景",
+          "description": "整体架构设计：纯前端 SPA、无后端服务、三态页面模型、双平台算法一致性",
+          "task": "从 PLAN.md 的系统架构图和项目文件结构出发，画出架构图文字描述：Cloudflare Pages → index.html → main.js (Hash Router) → 三个 Tab (CreateDraw/DrawStatus/Guide)。重点解释三态页面模型（截止前倒计时→已截止待开奖→已开奖验证）。说明 JS 和 Python 双平台如何保持算法一致（共享 lottery.js/lottery.py 的核心逻辑）。"
+        },
+        {
+          "level": "高级",
+          "title": "抽奖核心算法",
+          "description": "抽奖核心算法详解：Round 计算、SHA-256 种子派生、碰撞处理、多奖项层级",
+          "task": "从 lottery.js 和 lottery.py 中完整解读 computeWinners 算法。按步骤展开：1) round = floor((deadline - genesis)/period) + 1 2) 获取 randomness 3) 每个奖位用 SHA-256(randomness + ':' + shift) 派生种子 4) BigInt 取模 5) 碰撞时环形顺延。重点解释为什么用 SHA-256 而不是直接拼接（防止连续编号、安全独立性）。提供手动计算示例。引用 ALGORITHM.md 的算法规范。"
+        },
+        {
+          "level": "高级",
+          "title": "短码编解码规范",
+          "description": "短码格式的完整规范：各字段编码规则、base36 用法、编解码的跨平台实现",
+          "task": "对照 encode.js 和 cli/drand_draw/encode.py，详细解释 encodeShortCode 和 decodeShortCode 的每个字段：chain 缩写（q/d/e）、deadline 小端十六进制、N 的 base36、prizes/winners 的 base36 逗号分隔。说明为什么选择这些编码方式（紧凑性、可读性、避免歧义）。给出编解码测试示例（q-66364280-2s-1,3-2a,f,4e）。"
+        },
+        {
+          "level": "高级",
+          "title": "智能解析引擎",
+          "description": "smartParse 函数的设计与实现：从任意格式输入中自动识别抽奖参数",
+          "task": "从 encode.js 的 smartParse 函数和 cli/drand_draw/encode.py 的 smart_parse 函数中提取解析策略。解释五层递进解析逻辑：1) 直接短码 2) 文本中提取短码 3) URL 提取 4) Hash/fragment 解析 5) 原始 key=value。用流程图展示解析决策树。说明正则表达式 /\\b[qde]-[0-9a-f]+-[0-9a-z]+(?:-[0-9a-z,]+)*\\b/ 的匹配逻辑。给出各种输入格式的解析测试用例。"
+        },
+        {
+          "level": "高级",
+          "title": "三态页面渲染机制",
+          "description": "DrawStatus 组件的三态设计：从倒计时到等待开奖再到验证结果的完整状态机",
+          "task": "深入分析 DrawStatus.js 的 renderDrawStatus 函数。解释三态分支逻辑：1) deadline 未到 → renderCountdown（倒计时更新）2) 已截止无 winners → renderAwaitDraw（开奖按钮）3) 有 winners → renderVerified（直接验证）。说明 countdown 的 setInterval 实现和跨页面状态保持（hash 驱动）。解释 performVerification 的 fetchWithRetry 重试机制（最多 5 次，间隔 2 秒）。"
+        },
+        {
+          "level": "高级",
+          "title": "drand API 集成与故障切换",
+          "description": "与 drand 去中心化随机信标网络的 HTTP API 集成，多 relay 故障切换策略",
+          "task": "从 api.js 和 cli/drand_draw/api.py 中解读 fetchWithFallback 实现。说明三条 relay 链（api.drand.sh、api2.drand.sh、drand.cloudflare.com）的故障切换轮询机制。解释 v1 API 端点格式 /{chainHash}/public/{round}。说明 8 秒超时设置（AbortSignal.timeout）。讨论 v1 与 v2 API 的差异（randomness 字段 vs signature 哈希派生）。引用 chains.js 的三个链配置。"
+        },
+        {
+          "level": "中级",
+          "title": "链配置系统",
+          "description": "三条 drand 链（QuickNet/Default/EVMNet）的配置参数、差异对比与选型建议",
+          "task": "从 chains.js 中提取三条链的完整配置表（chainHash、genesisTime、period、scheme、relays）。对比三条链的关键差异：period（3s vs 30s vs 3s）、scheme 类型（bls-unchained vs pedersen-bls-chained vs bls-bn254-unchained）。说明为什么要推荐 QuickNet（出块快、开奖等待短）。解释 CHAIN_SHORT/SHORT_CHAIN 映射表在短码编解码中的作用。"
+        },
+        {
+          "level": "中级",
+          "title": "前端路由与状态管理",
+          "description": "基于 Hash 的 SPA 路由实现、参数编解码、页面状态持久化",
+          "task": "从 main.js 中解读 Hash Router 实现。说明三个路由：/#/create（发起抽奖）、/#/verify（验证抽奖）、/#/guide（使用说明）。解释 hashToParams 如何从 Hash 中解析抽奖参数。说明 hashchange 事件监听的用途。解释 drand-refresh 自定义事件在截止时间到后自动刷新页面的机制。分析 state 管理方式（完全基于 URL hash，无内部状态存储）。"
+        },
+        {
+          "type": "group",
+          "title": "算法与安全"
+        },
+        {
+          "level": "高级",
+          "title": "算法规范与测试向量",
+          "description": "完整的算法规范文档解读，以及如何用测试向量验证算法实现的正确性",
+          "task": "对照 ALGORITHM.md 和 GUIDE.md 的算法规范章节，编写可执行的测试用例。给出一个确定性的测试向量：固定 randomness 值（例如全 0）、N=10、prizes=[1,2]，手动计算每一步的 SHA-256 哈希值和最终 winners 数组。说明如何用 Python 或 JS 脚本独立验证结果。提醒注意 SHA-256 哈希的前后一致性（JS 用 crypto.subtle.digest，Python 用 hashlib.sha256）。"
+        },
+        {
+          "level": "高级",
+          "title": "攻击面分析与信任模型",
+          "description": "系统面临的潜在攻击向量、防御机制以及仍需社会约束的安全边界",
+          "task": "从 PLAN.md 和 GUIDE.md 中提取攻击面分析表。列出五种攻击场景：博主选择 round、虚报 N、篡改排序规则、伪造随机数、多次开奖。对每种攻击说明防御机制（deadline 锁定 round、N 在 URL 锁定、排序规则硬编码、drand 多签名验证、确定性计算）。讨论仍需社会约束的三个方面：截止前公开链接、开奖前公开候选列表、诚信去重。引用 GUIDE.md 中的攻击面分析表格。"
+        },
+        {
+          "level": "中级",
+          "title": "安全边界与参数限制",
+          "description": "系统参数的最大安全边界设计：N 上限、奖项层级、每层人数、时间戳范围",
+          "task": "从 ALGORITHM.md 中提取安全边界表并逐条解释设计理由：N ≤ 1,048,575（20 位二进制）、奖项层级 ≤ 15 层、每层 ≤ 1,000 人、deadline ≤ 2106 年（32 位时间戳上限）。说明为什么设置这些上限（计算性能、短码长度、实际使用场景）。讨论 BigInt 在 JS 和 Python 中的处理差异。"
+        },
+        {
+          "type": "group",
+          "title": "部署与开发"
+        },
+        {
+          "level": "中级",
+          "title": "Cloudflare Pages 部署",
+          "description": "使用 Wrangler CLI 或 GitHub 集成将项目部署到 Cloudflare Pages 的完整流程",
+          "task": "从 wrangler.toml 和 package.json 中提取部署配置。分步说明：1) 前提条件（Node.js、wrangler 登录）2) npm install && npm run build 3) wrangler pages deploy。说明两种部署方式（CLI 部署 vs GitHub 自动部署）。解释 vite.config.js 的构建配置和 Tailwind v4 插件。讨论 pages_build_output_dir = 'dist' 的配置含义。给出 .env 配置建议（如果有）。"
+        },
+        {
+          "level": "中级",
+          "title": "CLI 打包与发布",
+          "description": "Python CLI 工具的 pyproject.toml 配置解析、pip 打包与发布流程",
+          "task": "从 cli/pyproject.toml 和 __main__.py 中提取 CLI 打包配置。说明项目元数据、依赖声明、入口点配置（drand-draw = drand_draw.__main__:main）。解释 argparse 命令树的设计（verify/compute/encode/decode/parse 五子命令）。说明开发时如何用 python -m drand_draw 直接运行。讨论 PyPI 发布的准备步骤（setup 配置、twine 上传）。"
+        },
+        {
+          "level": "中级",
+          "title": "i18n 国际化方案",
+          "description": "中英双语国际化实现：语言检测、键值对翻译、运行时切换机制",
+          "task": "从 i18n.js 中解读国际化方案。解释 detectLang 函数如何根据浏览器语言和 localStorage 确定语言。说明 T 对象的结构（zh/en 两级嵌套，支持函数类型值如 prizeTier(i)）。解释 t() 和 tLang() 两个导出函数的区别。说明语言切换按钮的渲染逻辑（每次切换触发全页 re-render）。展示如何添加新语言支持。"
+        },
+        {
+          "level": "高级",
+          "title": "组件系统与 UI 架构",
+          "description": "四个 UI 组件的职责划分、交互模式、以及无框架下的组件化设计模式",
+          "task": "分析四个组件的设计模式：1) CreateDraw.js（表单驱动、生成链接/短码）2) DrawStatus.js（三态渲染、事件驱动、异步操作）3) Guide.js（Markdown 渲染）4) SortTool.js（Canvas 图像生成）。说明无框架下的组件化方案：每个组件是独立的渲染函数，接受 container 参数，内部处理事件绑定。讨论这种'函数式组件'的优缺点。引用 main.js 中组件调用的路由逻辑。"
+        },
+        {
+          "level": "高级",
+          "title": "候选列表排序工具实现",
+          "description": "SortTool 组件中 Canvas 图像生成引擎的完整实现：文字排版、分页、图片导出",
+          "task": "深入分析 SortTool.js 中的 Canvas 渲染引擎。解释 renderListImages 函数：1) 常量定义（PAD、ROW_H、W 等排版参数）2) column 模式的单列渲染 3) square 模式的网格布局 4) 自动分页逻辑（MAX_H = 8000px）5) 暗色主题配色方案 6) 文字截断处理（ctx.measureText 判断溢出）。说明 canvasToBlobAsync 的 PNG 导出和 download 链接生成。给出多种参与者数量的渲染示例。"
+        },
+        {
+          "level": "初学",
+          "title": "项目路线图与开发计划",
+          "description": "PLAN.md 中的设计文档解读、已实现功能与未来规划",
+          "task": "阅读 PLAN.md，提取项目的设计目标、已实现功能清单和未来计划。列出核心特性清单（完全透明、零后台、中英双语、多链支持、多奖项、短码分享）。说明'不是区块链项目'的设计哲学。引用项目中的攻击面分析和信任模型讨论。提及已知限制（社会约束部分）和可能的改进方向。"
+        },
+        {
+          "level": "中级",
+          "title": "参与贡献指南",
+          "description": "面向开发者的贡献指南：代码规范、算法一致性约束、测试要求、PR 流程",
+          "task": "综合整个代码库，编写贡献指南。说明核心原则：JS 和 Python 的算法必须保持完全一致（lottery.js ↔ lottery.py）。代码风格要求（ES Modules、async/await、argparse）。测试要求（提供确定性测试向量验证算法正确性）。修改流程建议（先改 ALGORITHM.md 更新规范 → 同步修改 JS 和 Python → 添加测试向量）。说明如何运行开发环境（npm run dev）和预览构建（npm run preview）。"
+        }
+      ]
+    }
+  ]
+}
