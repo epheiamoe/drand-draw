@@ -99,7 +99,7 @@ function computeWinners(randomness, N, prizeTiers):
 格式: {chain}-{deadline_hex}-{N_base36}-{prizes}-{winners}
 
 chain:  q=quicknet, d=default, e=evmnet
-deadline:  小端十六进制（不含 0x）
+deadline:  小写十六进制（不含 0x）
 N:         base36 编码（0-9a-z）
 prizes:    逗号分隔的 base36 数字（可选）
 winners:   逗号分隔的 base36 数字（可选）

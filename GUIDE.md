@@ -479,7 +479,7 @@ print(f'Winners: {winners}')
 
 字段说明:
   chain字首:   q = quicknet, d = default, e = evmnet
-  deadline:    Unix 时间戳的小端十六进制（不含 0x）
+  deadline:    Unix 时间戳的小写十六进制（不含 0x）
   N:           base36 编码（0-9a-z）
   prizes:      逗号分隔的 base36 数字（可选）
   winners:     逗号分隔的 base36 数字（可选）
@@ -493,7 +493,7 @@ print(f'Winners: {winners}')
 
 ### 7. 测试向量
 
-以下测试向量可用于验证你的算法实现是否正确：
+以下测试向量可用于验证你的算法实现是否正确（使用 SHA-256 版本）：
 
 ```
 链: quicknet
@@ -504,7 +504,8 @@ N: 100
 计算:
   round = floor((1715000000 - 1692803367) / 3) + 1 = 7398878
   randomness = 需从 https://api.drand.sh/52db9.../public/7398878 获取
-  中奖编号 = (BigInt('0x' + randomness + '0') % 100n)
+  seedHex = SHA256(randomness + ':0')   ← 哈希派生
+  中奖编号 = BigInt('0x' + seedHex) % 100n
 ```
 
 > 注：上面的 round 是示例计算，实际测试时请使用最新的实际数据。

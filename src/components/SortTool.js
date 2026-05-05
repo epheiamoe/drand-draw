@@ -150,7 +150,7 @@ function parseHandles(raw) {
   const handles = [...new Set(
     cleaned.split(/\s+/).filter(h => h.length > 0)
   )]
-  handles.sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }))
+  handles.sort((a, b) => a < b ? -1 : a > b ? 1 : 0)
   return handles
 }
 

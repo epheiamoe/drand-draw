@@ -303,7 +303,7 @@ Each prize position uses a SHA-256 hash-derived seed: `SHA256(randomness + ':' +
 ### §5 Verify via Command Line
 
 ```bash
-CHAIN_HASH="52db9ba70e0cc0f6eaf7803dd07447a1f5477735"
+CHAIN_HASH="52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971"
 ROUND=7398878
 N=100
 
