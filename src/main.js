@@ -1,6 +1,6 @@
 import './style.css'
 import { detectLang, setLang, getLang, t } from './i18n.js'
-import { hashToParams, paramsToHash, encodeShortCode, decodeShortCode } from './encode.js'
+import { hashToParams, paramsToHash, encodeShortCode, decodeShortCode, smartParse } from './encode.js'
 import { renderCreateDraw } from './components/CreateDraw.js'
 import { renderDrawStatus } from './components/DrawStatus.js'
 import { renderGuide } from './components/Guide.js'
@@ -159,14 +159,7 @@ function renderManualVerify(container) {
   verifySubmit.addEventListener('click', () => {
     const val = verifyInput.value.trim()
     if (!val) return
-    if (val.includes('=') || val.includes('?')) {
-      const hash = val.includes('#') ? val.split('#')[1] || val : val
-      const params = hashToParams(hash)
-      if (params) { doVerify(params); return }
-    }
-    const decoded = decodeShortCode(val.replace(/[^0-9a-zA-Z,-]/g, ''))
-    if (decoded) { doVerify(decoded); return }
-    const params = hashToParams('#/?' + val)
+    const params = smartParse(val)
     if (params) { doVerify(params); return }
     verifyResult.innerHTML = `<div class="text-red-400 text-sm mt-4">${t('verifyFail')}: invalid input</div>`
   })

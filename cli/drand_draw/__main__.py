@@ -110,6 +110,35 @@ def cmd_decode(args):
         print(f'Winners: {", ".join(f"#{w}" for w in result["winners"])}')
 
 
+def cmd_parse(args):
+    """Parse text to extract draw parameters."""
+    text = args.text
+    if not text and not sys.stdin.isatty():
+        text = sys.stdin.read().strip()
+    if not text:
+        print('Error: no input text provided', file=sys.stderr)
+        sys.exit(1)
+
+    result = encode.smart_parse(text)
+    if result is None:
+        print('Error: could not parse draw parameters from input', file=sys.stderr)
+        sys.exit(1)
+
+    print(f'Chain: {result["chain"]}')
+    print(f'Deadline: {result["deadline"]} '
+          f'({datetime.fromtimestamp(result["deadline"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")} UTC)')
+    print(f'N: {result["n"]}')
+    if result.get('prizes'):
+        print(f'Prizes: {", ".join(str(p) for p in result["prizes"])}')
+    if result.get('winners'):
+        print(f'Winners: {", ".join(f"#{w}" for w in result["winners"])}')
+    print()
+    print(f'→ Pipe to verify: drand-draw verify --chain {result["chain"]} '
+          f'--round ??? --n {result["n"]} '
+          f'--prizes {"1" if not result.get("prizes") else ",".join(str(p) for p in result["prizes"])} '
+          f'--winners {",".join(str(w) for w in result.get("winners", []))}')
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='drand-draw: Verifiable lottery CLI tool powered by drand'
@@ -142,6 +171,10 @@ def main():
     p = sub.add_parser('decode', help='Decode short code to parameters')
     p.add_argument('code')
     p.set_defaults(func=cmd_decode)
+
+    p = sub.add_parser('parse', help='Parse text (URL, short code, share text) to extract draw parameters')
+    p.add_argument('text', nargs='?', help='Input text (reads from stdin if omitted)')
+    p.set_defaults(func=cmd_parse)
 
     args = parser.parse_args()
     args.func(args)

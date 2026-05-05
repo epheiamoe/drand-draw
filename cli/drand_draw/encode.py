@@ -77,3 +77,109 @@ def decode_short_code(code):
         'prizes': prizes or [],
         'winners': winners or [],
     }
+
+
+import re
+
+def _try_shortcode(val):
+    """Direct short code."""
+    try:
+        return decode_short_code(val)
+    except (ValueError, IndexError):
+        return None
+
+
+def _find_shortcode_in_text(val):
+    """Find short code pattern in text."""
+    m = re.search(r'\b[qde]-[0-9a-f]+-[0-9a-z]+(?:-[0-9a-z,]+)*\b', val)
+    if m:
+        try:
+            return decode_short_code(m.group(0))
+        except (ValueError, IndexError):
+            pass
+    return None
+
+
+def _extract_url(val):
+    """Extract URL and parse its hash/search params."""
+    u = re.search(r'https?://[^\s]+', val)
+    if u:
+        try:
+            from urllib.parse import urlparse, parse_qs
+            parsed = urlparse(u.group(0))
+            frag = parsed.fragment.lstrip('#')
+            if frag.startswith('/?'):
+                frag = frag[2:]
+            if frag:
+                qs = parse_qs(frag)
+            else:
+                qs = parse_qs(parsed.query)
+            if 'chain' in qs and 'deadline' in qs and 'n' in qs:
+                return {
+                    'chain': qs['chain'][0],
+                    'deadline': int(qs['deadline'][0]),
+                    'n': int(qs['n'][0]),
+                    'prizes': [int(x) for x in qs.get('prizes', [''])[0].split(',') if x] if 'prizes' in qs else [],
+                    'winners': [int(x) for x in qs.get('winners', [''])[0].split(',') if x] if 'winners' in qs else [],
+                }
+        except Exception:
+            pass
+    return None
+
+
+def _try_fragment(val):
+    """Try to parse as hash/query fragment."""
+    idx = max(val.rfind('#'), val.find('?'))
+    if idx >= 0:
+        frag = val[idx:]
+        if frag.startswith('/?'):
+            frag = frag[1:]
+        if frag.startswith('?') or '=' in frag:
+            from urllib.parse import parse_qs
+            qs = parse_qs(frag.lstrip('?'))
+            if 'chain' in qs and 'deadline' in qs and 'n' in qs:
+                return {
+                    'chain': qs['chain'][0],
+                    'deadline': int(qs['deadline'][0]),
+                    'n': int(qs['n'][0]),
+                    'prizes': [int(x) for x in qs.get('prizes', [''])[0].split(',') if x] if 'prizes' in qs else [],
+                    'winners': [int(x) for x in qs.get('winners', [''])[0].split(',') if x] if 'winners' in qs else [],
+                }
+    return None
+
+
+def _try_raw(val):
+    """Try raw key=value."""
+    if '=' in val:
+        from urllib.parse import parse_qs
+        qs = parse_qs(val.lstrip('?'))
+        if 'chain' in qs and 'deadline' in qs and 'n' in qs:
+            return {
+                'chain': qs['chain'][0],
+                'deadline': int(qs['deadline'][0]),
+                'n': int(qs['n'][0]),
+                'prizes': [int(x) for x in qs.get('prizes', [''])[0].split(',') if x] if 'prizes' in qs else [],
+                'winners': [int(x) for x in qs.get('winners', [''])[0].split(',') if x] if 'winners' in qs else [],
+            }
+    return None
+
+
+def smart_parse(val):
+    """Smart parse input text to extract draw parameters.
+
+    Tries in order:
+    1. Direct short code
+    2. Short code in text
+    3. URL extraction
+    4. Hash/query fragment
+    5. Raw key=value
+    """
+    if not val or not val.strip():
+        return None
+    val = val.strip()
+    steps = [_try_shortcode, _find_shortcode_in_text, _extract_url, _try_fragment, _try_raw]
+    for step in steps:
+        result = step(val)
+        if result is not None:
+            return result
+    return None

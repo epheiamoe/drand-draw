@@ -131,9 +131,8 @@ function renderAwaitDraw(container, params, deadlineStr, chain, prizes, n) {
           <div><span class="text-gray-400">${t('participants')} N</span><br><span class="text-white font-mono">${n}</span></div>
           <div><span class="text-gray-400">${t('prizesLabel')}</span><br><span class="text-white font-mono">${prizes.join(', ')} ${t('winners')}</span></div>
         </div>
-        <div class="text-center text-gray-400 py-4">
-          ${t('noWinnersYet')}<br>
-          <span class="text-sm">${t('manualDraw')}</span>
+        <div class="text-center text-gray-400 text-sm py-4">
+          ${t('manualDraw')}
         </div>
         <button id="do-draw-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg px-4 py-3 transition-colors flex items-center justify-center gap-2">
           ${ICONS.dices} ${t('drawBtn')}
