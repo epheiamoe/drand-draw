@@ -283,7 +283,7 @@ function computeWinners(randomness, N, prizeTiers):
   for i = 0 to len(prizeTiers) - 1:
     for j = 0 to prizeTiers[i] - 1:
       shift = len(winners)                // number of winners already assigned
-      seedHex = randomness + toHex(shift) // randomness + shift in hex
+      seedHex = SHA256(randomness + ':' + shift) // hash-derived seed
       bigVal = BigInt('0x' + seedHex)
       idx = bigVal % N
 
@@ -296,7 +296,7 @@ function computeWinners(randomness, N, prizeTiers):
   return winners
 ```
 
-Each prize position uses a different slice of the randomness: `randomness + shift`. Collisions advance to the next unclaimed number (circular).
+Each prize position uses a SHA-256 hash-derived seed: `SHA256(randomness + ':' + shift)`. The hash ensures that different shifts produce uncorrelated seeds — no consecutive winners. Collisions advance to the next unclaimed number (circular).
 
 ---
 
@@ -311,6 +311,7 @@ RANDOMNESS=$(curl -s "https://api.drand.sh/${CHAIN_HASH}/public/${ROUND}" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['randomness'])")
 
 python3 -c "
+import hashlib
 r = '$RANDOMNESS'
 N = $N
 prizes = [1, 3]  # 1 first prize, 3 second prizes
@@ -319,7 +320,8 @@ used = set()
 for i, c in enumerate(prizes):
   for j in range(c):
     s = len(winners)
-    idx = int(r + format(s, 'x'), 16) % N
+    seed = int(hashlib.sha256((r + ':' + str(s)).encode()).hexdigest(), 16)
+    idx = seed % N
     while idx in used:
       idx = (idx + 1) % N
     used.add(idx)

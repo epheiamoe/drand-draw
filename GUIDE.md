@@ -351,7 +351,7 @@ N = 有效参与用户总数
     for i = 0 to len(prizeTiers) - 1:          // 遍历奖项层级
       for j = 0 to prizeTiers[i] - 1:          // 遍历该层级的每个奖位
         shift = len(winners)                   // 当前已产生的奖位数
-        seedHex = randomness + toHex(shift)    // 拼接: 随机数 + shift 的十六进制
+        seedHex = SHA256(randomness + ':' + shift)  // 哈希派生种子
         bigVal = parseBigInt(seedHex, 16)      // 转为大整数
         idx = bigVal % N                        // 取模得到候选编号
 
@@ -364,31 +364,34 @@ N = 有效参与用户总数
     return winners
 
 说明:
-  - 每个奖位使用 randomness 的不同分片：randomness + shift
+  - 每个奖位使用 SHA-256 哈希派生种子：SHA256(randomness + ':' + shift)
   - shift = 0, 1, 2, ... 分别对应第 1、2、3... 个奖位
+  - 哈希确保了不同 shift 产生的种子互不相关，不会出现连续编号
   - 碰撞时顺延到下一个未被占用的编号（环形查找）
   - 所有奖位计算完成后，winners 数组的顺序即为各奖项中奖编号
 
 示例 (randomness = "a3f25c...", N = 100, prizeTiers = [1, 3]):
 
   一等奖:
-    shift = 0, seedHex = "a3f25c...0"
-    bigVal = 0xa3f25c...0
+    shift = 0, seedHex = SHA256("a3f25c...:0")
+             = "e7b2a9..._a_random_256bit_hash"
+    bigVal = 0xe7b2a9...
     idx = bigVal % 100 = 42                → #42 中一等奖
 
   二等奖 (第 1 个):
-    shift = 1, seedHex = "a3f25c...1"
-    bigVal = 0xa3f25c...1
+    shift = 1, seedHex = SHA256("a3f25c...:1")
+             = "8d3f1c..._completely_different_hash"
+    bigVal = 0x8d3f1c...
     idx = bigVal % 100 = 15               → #15 中二等奖
 
   二等奖 (第 2 个):
-    shift = 2, seedHex = "a3f25c...2"
-    bigVal = 0xa3f25c...2
+    shift = 2, seedHex = SHA256("a3f25c...:2")
+    bigVal = ...
     idx = bigVal % 100 = 78               → #78 中二等奖
 
   二等奖 (第 3 个):
-    shift = 3, seedHex = "a3f25c...3"
-    bigVal = 0xa3f25c...3
+    shift = 3, seedHex = SHA256("a3f25c...:3")
+    bigVal = ...
     idx = bigVal % 100 = 42               → 碰撞! 顺延至 43
 
     used = {42, 15, 78}, 43 可用         → #43 中二等奖
@@ -447,12 +450,14 @@ randomness = '$RANDOMNESS'
 N = $N
 prizes = [1, 3]  # 一等奖1人，二等奖3人
 
+# 新版（使用 SHA-256，每个奖位独立随机）
+import hashlib
 winners = []
 used = set()
 for i, count in enumerate(prizes):
     for j in range(count):
         shift = len(winners)
-        seed = int(randomness + format(shift, 'x'), 16)
+        seed = int(hashlib.sha256((randomness + ':' + str(shift)).encode()).hexdigest(), 16)
         idx = seed % N
         while idx in used:
             idx = (idx + 1) % N

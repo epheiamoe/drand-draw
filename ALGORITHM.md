@@ -58,7 +58,7 @@ GET https://api.drand.sh/{chain_hash}/public/{round}
   - drand.cloudflare.com
 ```
 
-## 4. 中奖计算
+## 4. 中奖计算（核心）
 
 ```
 function computeWinners(randomness, N, prizeTiers):
@@ -71,7 +71,7 @@ function computeWinners(randomness, N, prizeTiers):
   for i in 0..len(prizeTiers)-1:
     for j in 0..prizeTiers[i]-1:
       shift = len(winners)
-      seedHex = randomness + toHex(shift)     // 拼接, 无 0x 前缀
+      seedHex = SHA256(randomness + ':' + shift)  // 哈希派生
       bigVal = BigInt('0x' + seedHex)
       idx = bigVal % N
 
@@ -88,8 +88,9 @@ function computeWinners(randomness, N, prizeTiers):
   return winners
 ```
 
-每个奖位使用 randomness 的不同分片: `randomness + shift`
+每个奖位使用 randomness 的 SHA-256 哈希派生种子：`SHA256(randomness + ':' + shift)`
 - shift = 0, 1, 2, ... 对应第 1、2、3... 个奖位
+- 哈希确保了不同 shift 产生的种子互不相关
 - 碰撞时顺延到下一个未被占用的编号（环形查找）
 
 ## 5. 短码编码
@@ -130,6 +131,7 @@ RANDOMNESS=$(curl -s "https://api.drand.sh/${CHAIN_HASH}/public/${ROUND}" \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['randomness'])")
 
 python3 -c "
+import hashlib
 r = '$RANDOMNESS'
 N = $N
 prizes = [1, 3]
@@ -138,7 +140,8 @@ used = set()
 for i, c in enumerate(prizes):
   for j in range(c):
     s = len(winners)
-    idx = int(r + format(s, 'x'), 16) % N
+    seed = hashlib.sha256((r + ':' + str(s)).encode()).hexdigest()
+    idx = int(seed, 16) % N
     while idx in used:
       idx = (idx + 1) % N
     used.add(idx)

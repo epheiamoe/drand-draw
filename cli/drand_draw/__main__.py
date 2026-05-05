@@ -1,10 +1,14 @@
 import argparse
 import sys
+import os
 from datetime import datetime, timezone
 
 from . import api
 from . import encode
 from . import lottery
+
+_OK = 'PASS'
+_FAIL = 'FAIL'
 
 
 def _fmt_tier(ti, count):
@@ -39,12 +43,12 @@ def cmd_verify(args):
         if not ok:
             all_ok = False
         claimed_str = ', '.join(f'#{w}' for w in tier_claimed)
-        marker = '\u2705' if ok else '\u274c'
+        marker = _OK if ok else _FAIL
         if ok:
-            print(f'{_fmt_tier(ti, count)}: {claimed_str}  {marker}')
+            print(f'{_fmt_tier(ti, count)}: {claimed_str}  [{marker}]')
         else:
             computed_str = ', '.join(f'#{w}' for w in tier_computed)
-            print(f'{_fmt_tier(ti, count)}: claimed {claimed_str}, computed {computed_str}  {marker}')
+            print(f'{_fmt_tier(ti, count)}: claimed {claimed_str}, computed {computed_str}  [{marker}]')
         idx += count
 
     print(f'Verification: {"PASSED" if all_ok else "FAILED"}')

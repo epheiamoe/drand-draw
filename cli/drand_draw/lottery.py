@@ -1,4 +1,10 @@
 import math
+import hashlib
+
+
+def _derive_seed(randomness, shift):
+    data = f'{randomness}:{shift}'.encode()
+    return hashlib.sha256(data).hexdigest()
 
 
 def compute_round(deadline, genesis, period):
@@ -17,7 +23,7 @@ def compute_winners(randomness, n, prize_tiers):
     for count in prize_tiers:
         for _ in range(count):
             shift = len(winners)
-            seed_hex = randomness + format(shift, 'x')
+            seed_hex = _derive_seed(randomness, shift)
             big_val = int(seed_hex, 16)
             idx = big_val % n
             attempts = 0

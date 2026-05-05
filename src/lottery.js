@@ -7,7 +7,15 @@ export function computeRound(chainId, deadlineUnix) {
   return Math.floor(elapsed / chain.period) + 1
 }
 
-export function computeWinners(randomness, n, prizeTiers) {
+async function deriveSeed(randomness, shift) {
+  const input = randomness + ':' + shift
+  const enc = new TextEncoder().encode(input)
+  const hash = await crypto.subtle.digest('SHA-256', enc)
+  const hex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return hex
+}
+
+export async function computeWinners(randomness, n, prizeTiers) {
   const totalPrizes = prizeTiers.reduce((a, b) => a + b, 0)
   if (totalPrizes > n) {
     throw new Error(`Total prizes (${totalPrizes}) exceeds N (${n})`)
@@ -17,7 +25,7 @@ export function computeWinners(randomness, n, prizeTiers) {
   for (let i = 0; i < prizeTiers.length; i++) {
     for (let j = 0; j < prizeTiers[i]; j++) {
       const shift = winners.length
-      const seedHex = randomness + shift.toString(16)
+      const seedHex = await deriveSeed(randomness, shift)
       const bigVal = BigInt('0x' + seedHex)
       let idx = Number(bigVal % BigInt(n))
       let attempts = 0

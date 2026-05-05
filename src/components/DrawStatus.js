@@ -168,7 +168,7 @@ function renderAwaitDraw(container, params, deadlineStr, chain, prizes, n) {
         }
       }
 
-      const winners = computeWinners(beacon.randomness, n, prizes)
+      const winners = await computeWinners(beacon.randomness, n, prizes)
 
       const resultParams = { ...params, winners }
       const url = paramsToHash(resultParams)
@@ -283,7 +283,7 @@ async function performVerification(container, params, chain, round, prizes, n, c
   const statusDiv = container.querySelector('#verify-status')
   try {
     const beacon = await fetchWithRetry(params.chain, round)
-    const computed = computeWinners(beacon.randomness, n, prizes)
+    const computed = await computeWinners(beacon.randomness, n, prizes)
     const match = computed.length === claimed.length && computed.every((v, i) => v === claimed[i])
     const grouped = formatWinnerList(computed, prizes)
 
@@ -392,7 +392,7 @@ async function performVerificationByRound(container, chainId, round, prizes, n, 
   const statusDiv = container.querySelector('#verify-status')
   try {
     const beacon = await fetchWithRetry(chainId, round)
-    const computed = computeWinners(beacon.randomness, n, prizes)
+    const computed = await computeWinners(beacon.randomness, n, prizes)
     const match = computed.length === claimed.length && computed.every((v, i) => v === claimed[i])
     const grouped = formatWinnerList(computed, prizes)
 
